@@ -6,7 +6,6 @@ import actionCreators from '../actions/action-creators';
 
 @connect(
   state => {
-    console.log(state.manager.todos);
     return ({todos: state.manager.todos});
   },
   dispatch => ({actions: bindActionCreators(actionCreators, dispatch)})
@@ -28,7 +27,7 @@ export default class ManagerContainer extends React.Component {
   }
 
   handleToggleClick(e) {
-    this.props.actions.toggle(e.target.id);
+    this.props.actions.toggle(e.target.id - 0);
   }
 
   render() {
@@ -42,7 +41,7 @@ export default class ManagerContainer extends React.Component {
               <li
                 key={todo.id}
                 id={todo.id}
-                style={todo.finish ? {textDecoration: 'lineThrough'} : null}
+                style={todo.finish ? {color: 'red'} : null}
                 onClick={(e) => this.handleToggleClick(e)}
               >
                 {todo.value}
