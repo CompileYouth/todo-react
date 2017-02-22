@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
 import store from './store';
+import ManagerContainer from './container/manager-container';
 
 ReactDOM.render(
   <Provider store={store}>
-    Hello
+    <ManagerContainer todos={[]} />
   </Provider>,
   document.getElementById('react-root')
 );
