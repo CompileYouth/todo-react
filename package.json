@@ -1,0 +1,25 @@
+{
+  "name": "todo-demo",
+  "version": "1.0.0",
+  "description": "A demo for learning react and redux.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CompileYouth/todo-demo.git"
+  },
+  "keywords": [
+    "redux",
+    "react",
+    "immutable",
+    "todo"
+  ],
+  "author": "CompileYouth <CompileYouth@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CompileYouth/todo-demo/issues"
+  },
+  "homepage": "https://github.com/CompileYouth/todo-demo#readme"
+}
