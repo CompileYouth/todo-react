@@ -1,1 +1,2 @@
-console.log('vendor')
+import 'react';
+import 'react-dom';
