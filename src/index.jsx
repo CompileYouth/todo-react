@@ -9,5 +9,5 @@ ReactDOM.render(
   <Provider store={store}>
     <ManagerContainer todos={[]} />
   </Provider>,
-  document.getElementById('react-root')
+  document.getElementById('todo-app')
 );

@@ -52,6 +52,7 @@ export default class ManagerContainer extends React.Component {
               key={todo.id}
               id={todo.id}
               style={todo.finish ? { textDecoration: 'line-through' } : null}
+              className={todo.finish ? 'todo-finish' : null}
               onClick={e => this.handleToggleClick(e)}
             >
               {todo.value}
