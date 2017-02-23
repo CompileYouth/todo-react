@@ -2,7 +2,12 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+import RaisedButton from 'material-ui/RaisedButton';
 import actionCreators from '../actions/action-creators';
+
+injectTapEventPlugin();
 
 @connect(
   state => ({ todos: state.manager.todos }),
@@ -44,6 +49,7 @@ export default class ManagerContainer extends React.Component {
   render() {
     return (
       <div>
+        <RaisedButton label="Default" />
         <input type="text" value={this.state.inputValue} onChange={e => this.handleInputChange(e)} />
         <button onClick={e => this.handleAddClick(e)}>Add</button>
         <ul>
