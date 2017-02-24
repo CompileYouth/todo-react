@@ -2,12 +2,12 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import { List, ListItem } from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
 
-import RaisedButton from 'material-ui/RaisedButton';
 import actionCreators from '../actions/action-creators';
-
-injectTapEventPlugin();
+import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
+import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
 
 @connect(
   state => ({ todos: state.manager.todos }),
@@ -16,12 +16,8 @@ injectTapEventPlugin();
 
 export default class ManagerContainer extends React.Component {
   static propTypes = {
-    actions: React.PropTypes.func.isRequired,
-    todos: React.PropTypes.arrayOf({
-      value: React.PropTypes.string,
-      id: React.PropTypes.number,
-      finish: React.PropTypes.bool
-    }).isRequired
+    actions: React.PropTypes.object.isRequired,
+    todos: React.PropTypes.array.isRequired
   };
 
   constructor() {
@@ -46,25 +42,33 @@ export default class ManagerContainer extends React.Component {
     this.props.actions.toggle(e.target.id - 0);
   }
 
+  handleTodoItemClick(e) {
+    console.log(e.target.id);
+    this.props.actions.toggle(e.target.id - 0);
+  }
+
   render() {
     return (
-      <div>
-        <RaisedButton label="Default" />
+      <div className="todo-list-container">
         <input type="text" value={this.state.inputValue} onChange={e => this.handleInputChange(e)} />
         <button onClick={e => this.handleAddClick(e)}>Add</button>
-        <ul>
+        <List className="todo-list">
           {this.props.todos.map(todo => (
-            <li
+            <ListItem
               key={todo.id}
-              id={todo.id}
-              style={todo.finish ? { textDecoration: 'line-through' } : null}
-              className={todo.finish ? 'todo-finish' : null}
-              onClick={e => this.handleToggleClick(e)}
-            >
-              {todo.value}
-            </li>)
+              leftCheckbox={
+                <Checkbox
+                  uncheckedIcon={<RadioButtonUnchecked />}
+                  checkedIcon={<RadioButtonChecked />}
+                />
+              }
+              primaryText={todo.value}
+              secondaryText="Jan 17, 2014"
+              //onClick={e => this.handleTodoItemClick(e)}
+            />
+            )
           )}
-        </ul>
+        </List>
       </div>
     );
   }

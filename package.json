@@ -4,6 +4,7 @@
   "description": "A demo for learning react and redux.",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -47,6 +48,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "immutable": "^3.8.1",
     "material-ui": "^0.17.0",
     "normalize.css": "^5.0.0",
