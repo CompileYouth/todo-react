@@ -2,12 +2,22 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+// material-ui
 import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
-
-import actionCreators from '../actions/action-creators';
+import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
 import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import { grey400 } from 'material-ui/styles/colors';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import TextField from 'material-ui/TextField';
+
+import actionCreators from '../actions/action-creators';
 
 @connect(
   state => ({ todos: state.manager.todos }),
@@ -48,27 +58,47 @@ export default class ManagerContainer extends React.Component {
   }
 
   render() {
+    const iconButtonElement = (
+      <IconButton
+        touch={true}
+        tooltipPosition="bottom-left"
+      >
+        <MoreVertIcon color={grey400} />
+      </IconButton>
+    );
+
     return (
       <div className="todo-list-container">
-        <input type="text" value={this.state.inputValue} onChange={e => this.handleInputChange(e)} />
-        <button onClick={e => this.handleAddClick(e)}>Add</button>
+        <TextField
+          hintText="Hint Text"
+          fullWidth={true}
+        /><br />
         <List className="todo-list">
           {this.props.todos.map(todo => (
-            <ListItem
-              key={todo.id}
-              leftCheckbox={
-                <Checkbox
-                  uncheckedIcon={<RadioButtonUnchecked />}
-                  checkedIcon={<RadioButtonChecked />}
-                />
-              }
-              primaryText={todo.value}
-              secondaryText="Jan 17, 2014"
-              //onClick={e => this.handleTodoItemClick(e)}
-            />
+            <div key={todo.id}>
+              <ListItem
+                leftCheckbox={
+                  <Checkbox
+                    uncheckedIcon={<RadioButtonUnchecked />}
+                    checkedIcon={<RadioButtonChecked />}
+                  />
+                }
+                primaryText={todo.value}
+                secondaryText="Jan 17, 2014"
+                rightIconButton={
+                  <IconMenu iconButtonElement={iconButtonElement}>
+                    <MenuItem>Delete</MenuItem>
+                  </IconMenu>
+                }
+              />
+              <Divider />
+            </div>
             )
           )}
         </List>
+        <FloatingActionButton className="add-btn">
+          <ContentAdd />
+        </FloatingActionButton>
       </div>
     );
   }
