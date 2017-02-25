@@ -34,22 +34,25 @@ export default class ManagerContainer extends React.Component {
     };
   }
 
+  handleAddClick() {
+    this.setState({ inputIsAvailable: true });
+  }
+
   handleInputChange(e) {
     this.setState({ inputValue: e.target.value });
   }
 
-  handleAddClick() {
+  handleAddSubmit(e) {
+    e.preventDefault();
 
-    this.setState({
-      inputIsAvailable: true
+    this.props.actions.add({
+      value: this.state.inputValue,
+      finish: false,
+      id: parseInt(Math.random() * 1000, 10)
     });
+    this.setState({ inputValue: '' });
 
-    // this.props.actions.add({
-    //   value: this.state.inputValue,
-    //   finish: false,
-    //   id: parseInt(Math.random() * 1000, 10)
-    // });
-    // this.setState({ inputValue: '' });
+    this.setState({ inputIsAvailable: false });
   }
 
   handleToggleClick(e) {
@@ -87,19 +90,23 @@ export default class ManagerContainer extends React.Component {
       <div className="todo-list-container">
         <Motion
           style={{
-            inputY: spring(this.state.inputIsAvailable ? 30 : 0),
+            inputY: spring(this.state.inputIsAvailable ? 20 : 0),
             opa: spring(this.state.inputIsAvailable ? 1 : 0) }}
         >
           {
-            ({ inputY, opa }) => (<TextField
-              className="input-field"
-              style={{
-                WebkitTransform: `translate3d(0, ${inputY}px, 0)`,
-                transform: `translate3d(0, ${inputY}px, 0)`,
-                opacity: opa
-              }}
-              hintText="Add a task here" fullWidth={true}
-            />)
+            ({ inputY, opa }) => (<form onSubmit={e => this.handleAddSubmit(e)}>
+              <TextField
+                className="input-field"
+                style={{
+                  WebkitTransform: `translate3d(0, ${inputY}px, 0)`,
+                  transform: `translate3d(0, ${inputY}px, 0)`,
+                  opacity: opa
+                }}
+                hintText="Add a task here" fullWidth={true}
+                onChange={e => this.handleInputChange(e)}
+                value={this.state.inputValue}
+              />
+            </form>)
           }
 
         </Motion>
