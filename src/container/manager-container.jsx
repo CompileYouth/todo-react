@@ -61,6 +61,10 @@ export default class ManagerContainer extends React.Component {
     this.props.actions.toggle(id - 0);
   }
 
+  handleDeleteItem(id) {
+    this.props.actions.delete(id);
+  }
+
   render() {
     const iconButtonElement = (
       <IconButton
@@ -114,6 +118,7 @@ export default class ManagerContainer extends React.Component {
                       primaryText="Delete"
                       leftIcon={<NavigationClose color={red500} />}
                       style={{ color: 'red' }}
+                      onClick={() => this.handleDeleteItem(todo.id)}
                     />
                   </IconMenu>
                 }
