@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 // material-ui
 import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
-import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
@@ -17,6 +16,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 
+import { Motion, spring, presets } from 'react-motion';
+
 import actionCreators from '../actions/action-creators';
 
 @connect(
@@ -25,14 +26,12 @@ import actionCreators from '../actions/action-creators';
 )
 
 export default class ManagerContainer extends React.Component {
-  static propTypes = {
-    actions: React.PropTypes.object.isRequired,
-    todos: React.PropTypes.array.isRequired
-  };
-
   constructor() {
     super();
-    this.state = { inputValue: '' };
+    this.state = {
+      inputValue: '',
+      inputIsAvailable: false
+    };
   }
 
   handleInputChange(e) {
@@ -40,7 +39,11 @@ export default class ManagerContainer extends React.Component {
   }
 
   handleAddClick() {
-    console.log('you click me');
+
+    this.setState({
+      inputIsAvailable: true
+    });
+
     // this.props.actions.add({
     //   value: this.state.inputValue,
     //   finish: false,
@@ -54,11 +57,17 @@ export default class ManagerContainer extends React.Component {
   }
 
   handleTodoItemClick(e) {
-    console.log(e.target.id);
     this.props.actions.toggle(e.target.id - 0);
   }
 
   render() {
+    const leftCheckbox = (
+      <Checkbox
+        uncheckedIcon={<RadioButtonUnchecked />}
+        checkedIcon={<RadioButtonChecked />}
+      />
+    );
+
     const iconButtonElement = (
       <IconButton
         touch={true}
@@ -68,30 +77,41 @@ export default class ManagerContainer extends React.Component {
       </IconButton>
     );
 
+    const rightIconButton = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem>Delete</MenuItem>
+      </IconMenu>
+    );
+
     return (
       <div className="todo-list-container">
-        <TextField
-          hintText="Add a task here"
-          fullWidth={true}
-        /><br />
+        <Motion
+          style={{
+            inputY: spring(this.state.inputIsAvailable ? 30 : 0),
+            opa: spring(this.state.inputIsAvailable ? 1 : 0) }}
+        >
+          {
+            ({ inputY, opa }) => (<TextField
+              className="input-field"
+              style={{
+                WebkitTransform: `translate3d(0, ${inputY}px, 0)`,
+                transform: `translate3d(0, ${inputY}px, 0)`,
+                opacity: opa
+              }}
+              hintText="Add a task here" fullWidth={true}
+            />)
+          }
+
+        </Motion>
         <List className="todo-list">
           {this.props.todos.map(todo => (
             <div key={todo.id}>
               <ListItem
                 className="todo-item"
-                leftCheckbox={
-                  <Checkbox
-                    uncheckedIcon={<RadioButtonUnchecked />}
-                    checkedIcon={<RadioButtonChecked />}
-                  />
-                }
+                leftCheckbox={leftCheckbox}
                 primaryText={todo.value}
                 secondaryText="Jan 17, 2014"
-                rightIconButton={
-                  <IconMenu iconButtonElement={iconButtonElement}>
-                    <MenuItem>Delete</MenuItem>
-                  </IconMenu>
-                }
+                rightIconButton={rightIconButton}
               />
             </div>
             )
