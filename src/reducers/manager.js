@@ -10,7 +10,7 @@ export default handleActions({
   [actionCreators.add](state, action) {
     return {
       ...state,
-      todos: [...state.todos, action.payload]
+      todos: [action.payload, ...state.todos]
     };
   },
   [actionCreators.toggle](state, action) {

@@ -16,7 +16,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 
-import { Motion, spring, presets } from 'react-motion';
+import { Motion, spring } from 'react-motion';
+import classnames from 'classnames';
 
 import actionCreators from '../actions/action-creators';
 
@@ -55,22 +56,11 @@ export default class ManagerContainer extends React.Component {
     this.setState({ inputIsAvailable: false });
   }
 
-  handleToggleClick(e) {
-    this.props.actions.toggle(e.target.id - 0);
-  }
-
-  handleTodoItemClick(e) {
-    this.props.actions.toggle(e.target.id - 0);
+  handleToggleItem(id) {
+    this.props.actions.toggle(id - 0);
   }
 
   render() {
-    const leftCheckbox = (
-      <Checkbox
-        uncheckedIcon={<RadioButtonUnchecked />}
-        checkedIcon={<RadioButtonChecked />}
-      />
-    );
-
     const iconButtonElement = (
       <IconButton
         touch={true}
@@ -108,14 +98,19 @@ export default class ManagerContainer extends React.Component {
               />
             </form>)
           }
-
         </Motion>
         <List className="todo-list">
           {this.props.todos.map(todo => (
             <div key={todo.id}>
               <ListItem
-                className="todo-item"
-                leftCheckbox={leftCheckbox}
+                className={classnames({ isfinish: todo.finish, 'todo-item': true })}
+                leftCheckbox={
+                  <Checkbox
+                    checked={todo.finish}
+                    uncheckedIcon={<RadioButtonUnchecked />}
+                    checkedIcon={<RadioButtonChecked />}
+                    onCheck={() => this.handleToggleItem(todo.id)}
+                  />}
                 primaryText={todo.value}
                 secondaryText="Jan 17, 2014"
                 rightIconButton={rightIconButton}
