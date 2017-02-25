@@ -10,11 +10,12 @@ import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unch
 import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { grey400 } from 'material-ui/styles/colors';
+import { grey400, red500 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 import { Motion, spring } from 'react-motion';
 import classnames from 'classnames';
@@ -70,12 +71,6 @@ export default class ManagerContainer extends React.Component {
       </IconButton>
     );
 
-    const rightIconButton = (
-      <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem>Delete</MenuItem>
-      </IconMenu>
-    );
-
     return (
       <div className="todo-list-container">
         <Motion
@@ -113,7 +108,15 @@ export default class ManagerContainer extends React.Component {
                   />}
                 primaryText={todo.value}
                 secondaryText="Jan 17, 2014"
-                rightIconButton={rightIconButton}
+                rightIconButton={
+                  <IconMenu iconButtonElement={iconButtonElement}>
+                    <MenuItem
+                      primaryText="Delete"
+                      leftIcon={<NavigationClose color={red500} />}
+                      style={{ color: 'red' }}
+                    />
+                  </IconMenu>
+                }
               />
             </div>
             )
