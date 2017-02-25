@@ -12,9 +12,19 @@
       ],
       "jsx-a11y/no-static-element-interactions": [
         "off"
+      ],
+      "react/prop-types": [
+        "off"
+      ],
+      "react/jsx-boolean-value": [
+        "off"
+      ],
+      "class-methods-use-this": [
+        "off"
       ]
     },
     "globals": {
-      "document": true
+      "document": true,
+      "window": true
     }
 }
