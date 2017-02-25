@@ -40,12 +40,13 @@ export default class ManagerContainer extends React.Component {
   }
 
   handleAddClick() {
-    this.props.actions.add({
-      value: this.state.inputValue,
-      finish: false,
-      id: parseInt(Math.random() * 1000, 10)
-    });
-    this.setState({ inputValue: '' });
+    console.log('you click me');
+    // this.props.actions.add({
+    //   value: this.state.inputValue,
+    //   finish: false,
+    //   id: parseInt(Math.random() * 1000, 10)
+    // });
+    // this.setState({ inputValue: '' });
   }
 
   handleToggleClick(e) {
@@ -70,13 +71,14 @@ export default class ManagerContainer extends React.Component {
     return (
       <div className="todo-list-container">
         <TextField
-          hintText="Hint Text"
+          hintText="Add a task here"
           fullWidth={true}
         /><br />
         <List className="todo-list">
           {this.props.todos.map(todo => (
             <div key={todo.id}>
               <ListItem
+                className="todo-item"
                 leftCheckbox={
                   <Checkbox
                     uncheckedIcon={<RadioButtonUnchecked />}
@@ -91,12 +93,14 @@ export default class ManagerContainer extends React.Component {
                   </IconMenu>
                 }
               />
-              <Divider />
             </div>
             )
           )}
         </List>
-        <FloatingActionButton className="add-btn">
+        <FloatingActionButton
+          className="add-btn"
+          onClick={() => this.handleAddClick()}
+        >
           <ContentAdd />
         </FloatingActionButton>
       </div>
