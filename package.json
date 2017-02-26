@@ -4,7 +4,8 @@
   "description": "A demo for learning react and redux.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "build": "./node_modules/webpack/bin/webpack.js",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/manager.test.js"
   },
   "repository": {
@@ -54,7 +55,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
-    "lodash": "^4.17.4",
     "material-ui": "^0.17.0",
     "normalize.css": "^5.0.0",
     "react": "^15.4.2",

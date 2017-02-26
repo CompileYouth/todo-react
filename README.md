@@ -14,5 +14,36 @@ Despite this app is simple and this project is small, the project contains lots 
 
 ## Used Technologies
 
+- React
+- Redux
+- Immutable
+- Webpack 2
+- ES6
+- Babel
+- LESS
+- Material Design
+- Mocha
+- Should
+
+
+## Software Preview
 
 ![](http://i.giphy.com/26BGzZZdvcVRzKDBe.gif)
+
+## Run
+
+```
+npm start
+```
+
+## Build
+
+```
+npm run build
+```
+
+## Test
+
+```
+npm test
+```
