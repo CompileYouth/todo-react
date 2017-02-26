@@ -18,6 +18,9 @@
       ],
       "class-methods-use-this": [
         "off"
+      ],
+      "no-return-assign": [
+        "off"
       ]
     },
     "globals": {
