@@ -73,10 +73,15 @@ export default class ManagerContainer extends React.Component {
   // logic from todo, unrelated to animation
   handleAddClick() {
     this.setState({ inputIsAvailable: true });
+    this.focus();
   }
 
   handleInputChange(e) {
     this.setState({ inputValue: e.target.value });
+  }
+
+  focus() {
+    this.todoInput.focus();
   }
 
   handleAddSubmit(e) {
@@ -129,6 +134,7 @@ export default class ManagerContainer extends React.Component {
                 hintText="Add a task here" fullWidth
                 onChange={e => this.handleInputChange(e)}
                 value={this.state.inputValue}
+                ref={input => this.todoInput = input}
               />
             </form>)
           }
