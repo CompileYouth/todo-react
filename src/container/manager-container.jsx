@@ -103,7 +103,7 @@ export default class ManagerContainer extends React.Component {
   render() {
     const iconButtonElement = (
       <IconButton
-        touch={true}
+        touch
         tooltipPosition="bottom-left"
       >
         <MoreVertIcon color={grey400} />
@@ -126,7 +126,7 @@ export default class ManagerContainer extends React.Component {
                   transform: `translate3d(0, ${inputY}px, 0)`,
                   opacity: opa
                 }}
-                hintText="Add a task here" fullWidth={true}
+                hintText="Add a task here" fullWidth
                 onChange={e => this.handleInputChange(e)}
                 value={this.state.inputValue}
               />
