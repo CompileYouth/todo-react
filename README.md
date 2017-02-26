@@ -13,3 +13,6 @@ Despite this app is simple and this project is small, the project contains lots 
 - **Cool Design**: All components in the project are of material-design style. Besides, animation is cool.
 
 ## Used Technologies
+
+
+![](http://i.giphy.com/26BGzZZdvcVRzKDBe.gif)
