@@ -5,19 +5,19 @@ import { connect } from 'react-redux';
 // material-ui
 import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import IconButton from 'material-ui/IconButton';
-import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
-import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { grey400, red500 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import TextField from 'material-ui/TextField';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import RadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
+import RadioButtonChecked from 'material-ui/svg-icons/toggle/radio-button-checked';
+import TextField from 'material-ui/TextField';
+import { grey400, red500 } from 'material-ui/styles/colors';
 
-import { Motion, spring } from 'react-motion';
+import { TransitionMotion, Motion, spring, presets } from 'react-motion';
 import classnames from 'classnames';
 
 import actionCreators from '../actions/action-creators';
@@ -36,6 +36,41 @@ export default class ManagerContainer extends React.Component {
     };
   }
 
+  // animation related logic
+  getDefaultStyles() {
+    return this.props.todos.map(todo => (
+      {
+        data: { ...todo }, key: todo.id.toString(), style: { height: 0, opacity: 1 }
+      })
+    );
+  }
+
+  getStyles() {
+    return this.props.todos.map(todo => ({
+      data: { ...todo },
+      key: todo.id.toString(),
+      style: {
+        height: spring(80, presets.gentle),
+        opacity: spring(1, presets.gentle)
+      }
+    }));
+  }
+
+  willEnter() {
+    return {
+      height: 0,
+      opacity: 1
+    };
+  }
+
+  willLeave() {
+    return {
+      height: spring(0),
+      opacity: spring(0)
+    };
+  }
+
+  // logic from todo, unrelated to animation
   handleAddClick() {
     this.setState({ inputIsAvailable: true });
   }
@@ -98,35 +133,49 @@ export default class ManagerContainer extends React.Component {
             </form>)
           }
         </Motion>
-        <List className="todo-list">
-          {this.props.todos.map(todo => (
-            <div key={todo.id}>
-              <ListItem
-                className={classnames({ isfinish: todo.finish, 'todo-item': true })}
-                leftCheckbox={
-                  <Checkbox
-                    checked={todo.finish}
-                    uncheckedIcon={<RadioButtonUnchecked />}
-                    checkedIcon={<RadioButtonChecked />}
-                    onCheck={() => this.handleToggleItem(todo.id)}
-                  />}
-                primaryText={todo.value}
-                secondaryText="Jan 17, 2014"
-                rightIconButton={
-                  <IconMenu iconButtonElement={iconButtonElement}>
-                    <MenuItem
-                      primaryText="Delete"
-                      leftIcon={<NavigationClose color={red500} />}
-                      style={{ color: 'red' }}
-                      onClick={() => this.handleDeleteItem(todo.id)}
+        <TransitionMotion
+          defaultStyles={this.getDefaultStyles()}
+          styles={this.getStyles()}
+          willLeave={() => this.willLeave()}
+          willEnter={() => this.willEnter()}
+        >
+          {
+            styles => (
+              <List className="todo-list">
+                {styles.map(({ key, style, data: { value, finish, id } }) => (
+                  <div key={key} style={style}>
+                    <ListItem
+                      className={classnames({ isfinish: finish, 'todo-item': true })}
+                      leftCheckbox={
+                        <Checkbox
+                          checked={finish}
+                          uncheckedIcon={<RadioButtonUnchecked />}
+                          checkedIcon={<RadioButtonChecked />}
+                          onCheck={() => this.handleToggleItem(id)}
+                        />
+                      }
+                      primaryText={value}
+                      secondaryText="Jan 17, 2014"
+                      rightIconButton={
+                        <IconMenu iconButtonElement={iconButtonElement}>
+                          <MenuItem
+                            primaryText="Delete"
+                            leftIcon={<NavigationClose color={red500} />}
+                            style={{ color: 'red' }}
+                            onClick={() => this.handleDeleteItem(id)}
+                          />
+                        </IconMenu>
+                      }
                     />
-                  </IconMenu>
-                }
-              />
-            </div>
+                  </div>
+                  )
+                )}
+              </List>
             )
-          )}
-        </List>
+
+          }
+        </TransitionMotion>
+
         <FloatingActionButton
           className="add-btn"
           onClick={() => this.handleAddClick()}

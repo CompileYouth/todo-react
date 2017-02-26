@@ -21,7 +21,7 @@ export default handleActions({
     const ind = Immutable.List(state.todos).findIndex(v => v.id === action.payload);
     return {
       ...state,
-      todos: Immutable.List(state.todos).delete(ind)
+      todos: Immutable.List(state.todos).delete(ind).toJS()
     };
   },
   [actionCreators.toggle](state, action) {
