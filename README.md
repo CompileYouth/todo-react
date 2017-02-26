@@ -1,6 +1,8 @@
 # todo-demo
 A demo for learning react and redux.
 
+[![Build Status](https://travis-ci.org/CompileYouth/todo-react.svg?branch=master)](https://travis-ci.org/CompileYouth/todo-react)
+
 ## Project Feature
 
 Despite this app is simple and this project is small, the project contains lots of important technologies when building a react project.
