@@ -17,7 +17,7 @@ Despite this app is simple and this project is small, the project contains lots 
 ## Used Technologies
 
 - React
-- Redux
+- Redux including react-actions, react-redux
 - Immutable
 - Webpack 2
 - ES6
@@ -27,26 +27,65 @@ Despite this app is simple and this project is small, the project contains lots 
 - Material Design
 - Mocha
 - Should
+- Others including classnames, normalize.css
 
 
 ## Application Preview
 
 ![](http://i.giphy.com/26BGzZZdvcVRzKDBe.gif)
 
-## Run
+## How to install
 
-```
-npm start
-```
+1. Clone the repo to your local storage.
 
-## Build
+  ```
+  git clone https://github.com/CompileYouth/todo-react.git
+  ```
 
-```
-npm run build
-```
+2. Install dependencies.
+
+  ```
+  npm install
+  ```
+
+## How to Build and Run
+
+- Run in Webpack DevServer.
+
+  ```
+  npm run dev
+  ```
+
+  Then open <http://localhost:8080>
+
+- Or build it in production mode.
+
+  ```
+  npm run build
+  ```
+
+  Then run
+
+  ```
+  npm start
+  ```
 
 ## Test
 
+Firstly, you can install [Mocha](https://github.com/mochajs/mocha) in global mode.
+
+```
+npm install -g mocha
+```
+
+Then run
+
 ```
 npm test
+```
+
+If you don't want to install [Mocha](https://github.com/mochajs/mocha), you can run command below to test:
+
+```
+./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/manager.test.js
 ```
