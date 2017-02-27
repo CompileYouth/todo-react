@@ -15,7 +15,7 @@
 ## 涉及技术
 
 - React
-- Redux
+- Redux including react-actions, react-redux
 - Immutable
 - Webpack 2
 - ES6
@@ -25,25 +25,64 @@
 - Material Design
 - Mocha
 - Should
+- Others including classnames, normalize.css
 
 ## 应用预览
 
 ![](http://i.giphy.com/26BGzZZdvcVRzKDBe.gif)
 
-## 运行
+## 如何安装
 
-```
-npm start
-```
+1. 将项目克隆至本地。
 
-## 构建
+  ```
+  git clone https://github.com/CompileYouth/todo-react.git
+  ```
 
-```
-npm run build
-```
+2. 安装依赖包。
+
+  ```
+  npm install
+  ```
+
+## 如何构建和运行
+
+- 使用 webpack-dev-server 运行。
+
+  ```
+  npm run dev
+  ```
+
+  打开： <http://localhost:8080>
+
+- 或者在生成模式下构建
+
+  ```
+  npm run build
+  ```
+
+  然后运行
+
+  ```
+  npm start
+  ```
 
 ## 测试
 
+首先，你需要在全局安装 [Mocha](https://github.com/mochajs/mocha)。
+
+```
+npm install -g mocha
+```
+
+然后运行
+
 ```
 npm test
+```
+
+如果你不想在全局安装 [Mocha](https://github.com/mochajs/mocha)，你可以执行下面的命令来测试：
+
+```
+./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/manager.test.js
 ```
