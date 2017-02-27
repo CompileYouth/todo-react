@@ -19,6 +19,7 @@
 - Immutable
 - Webpack 2
 - ES6
+- ESLint
 - Babel
 - LESS
 - Material Design
