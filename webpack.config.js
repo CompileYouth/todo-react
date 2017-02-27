@@ -36,6 +36,14 @@ module.exports = {
         })
       },
       {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader'],
+          fallback: 'style-loader'
+        }),
+        include: /node_modules/
+      },
+      {
         test: /\.html$/,
         use: [
           'file-loader?name=[name].html',
