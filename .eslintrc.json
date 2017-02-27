@@ -21,6 +21,9 @@
       ],
       "no-return-assign": [
         "off"
+      ],
+      "import/no-extraneous-dependencies": [
+        "off"
       ]
     },
     "globals": {
