@@ -21,6 +21,7 @@ Despite this app is simple and this project is small, the project contains lots 
 - Immutable
 - Webpack 2
 - ES6
+- ESLint
 - Babel
 - LESS
 - Material Design
